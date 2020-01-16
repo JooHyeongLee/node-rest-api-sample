@@ -16,8 +16,11 @@ process.on("unhandledRejection", e => {
 });
 
 const router = express();
+// 미들웨어 등록
 applyMiddleware(middleware, router);
+// 라우터 등록
 applyRoutes(routes, router);
+// 에러핸들러 미들웨어 등록
 applyMiddleware(errorHandlers, router);
 
 const { PORT = 3000 } = process.env;

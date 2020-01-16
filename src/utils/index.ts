@@ -24,7 +24,10 @@ type Route = {
 };
 
 export const applyRoutes = (routes: Route[], router: Router) => {
+  /* [ { test: { path: '/hello', method: 'get', handler: [Array] },
+    test2: { path: '/world', method: 'get', handler: [Array] } } ] */
   for (const route of routes) {
+    console.log(route.path);
     const { method, path, handler } = route;
     (router as any)[method](path, handler);
   }
