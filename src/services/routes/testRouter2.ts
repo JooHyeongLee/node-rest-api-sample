@@ -1,19 +1,21 @@
 import { Router, Request, Response } from "express";
+import { logger } from "../../utils/logger";
 
 
 
-const testRouter = {
-    test : {
-        path: "/hello",
+const testRouter2 = {
+    test3 : {
+        path: "/aa",
         method: "get",
         handler: [
             async ({  }: Request, res: Response) => {
-                res.status(200).send("hello");
+                logger.info('[route] : /aa ')
+                res.status(200).send("abcd");
             }
         ]
     }, 
-    test2: {
-        path: "/world",
+    test4: {
+        path: "/bb",
         method: "get",
         handler: [
             async ({  }: Request, res: Response) => {
@@ -23,4 +25,4 @@ const testRouter = {
     }
 }
 
-export {testRouter}
+export {testRouter2}

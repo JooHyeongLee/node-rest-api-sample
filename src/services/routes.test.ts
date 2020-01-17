@@ -1,10 +1,10 @@
 import express, { Router } from "express";
 import request from "supertest";
-import { applyMiddleware, applyRoutes } from "../../utils";
+import { applyMiddleware, applyRoutes } from "../utils";
 import promiseRequest from "request-promise";
-import middleware from "../../middleware";
-import errorHandlers from "../../middleware/errorHandlers";
-import routes from "../../services/search/routes";
+import middleware from "../middleware";
+import errorHandlers from "../middleware/errorHandlers";
+import routes from "./routes";
 
 jest.mock("request-promise");
 (promiseRequest as any).mockImplementation(() => '{"features": []}');

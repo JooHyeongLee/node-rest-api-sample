@@ -5,10 +5,10 @@ dist/
 tmp/
 temp/
 *.log
-log/
+logs/
 coverage/
 .env
 .tscache
 sessions/
-certs/
 .DS_Store
+src/config
