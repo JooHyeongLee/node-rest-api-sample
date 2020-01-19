@@ -27,7 +27,7 @@ applyMiddleware(middleware, app);
 // 라우터 등록
 applyRoutes(routes, app);
 // 에러핸들러 미들웨어 등록
-// applyMiddleware(errorHandlers, app);
+applyMiddleware(errorHandlers, app);
 
 const { PORT = 3000 } = process.env;
 const server = http.createServer(app);
