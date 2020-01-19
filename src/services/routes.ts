@@ -5,8 +5,8 @@ import * as fs from 'fs';
 import * as path from 'path';
 import { logger } from '../utils/logger';
 
-let result: any = [];
-let routes = [testRouter, testRouter2, count];
+let results: any = [];
+let routes = [testRouter, testRouter2];
 
 async function routeList() {
   const files = await new Promise((resolve, reject)=> fs.readdir(path.join(__dirname, '/routes/'), (err: NodeJS.ErrnoException | null, files: string[])=>{
@@ -22,31 +22,37 @@ async function routeList() {
 }
 
 
-async function initRouter<Router>(routes: Router[]) {
+async function initRouter<Router>() {
   let routeLists: any = await routeList();
-  const entry: any = [];
 
-  routeLists.map( async (v: string)=>{
-    if(v.substr(v.length-2) === 'js') {
-        const route = await import (path.join(__dirname, `/routes/${v}`));
-        
-        let a: any = Object.values(route[v.split(".js")[0]]);
-        Array.prototype.push.apply(entry, a[0]);
-
-    }
+  let js = routeLists.filter((v: any)=> {
+    return v.substr(v.length-2) === 'js';
   })
+
+  let result: any[] = await Promise.all(js.map(async (v: any)=> {
+    const route = await import (path.join(__dirname, `/routes/${v}`));
+    return await Object.values(route[v.split(".js")[0]]);
+  }));
   
   const route: Partial<Router>[] = [];
 
-  for(const prop of routes) {
+  for(const prop of result) {
     Array.prototype.push.apply(route, Object.values(prop));
   }
-  result = route;
+  return route;
 }
 
-initRouter(routes);
+//routes.map( (v, i)=>{
+//    Array.prototype.push.apply(results, Object.values(v));
+//})
+//
+//export default results 
 
-export default result
+export default async function() {
+    return await initRouter();
+}
+
+
 
 
 /* 

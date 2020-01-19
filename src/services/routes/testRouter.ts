@@ -2,6 +2,7 @@ import { Router, Request, Response } from "express";
 import { OR_RECORD_EXTN_DEV } from '../../entity/SEASON3_DEV/entities/OR_RECORD_EXTN';
 import * as db from "typeorm";
 import { logger } from "../../utils/logger";
+import { checkSearchParams } from "../../middleware/checks";
 
 
 const testRouter = {
@@ -32,8 +33,9 @@ const testRouter = {
         path: "/world",
         method: "get",
         handler: [
-            async ({  }: Request, res: Response) => {
-                res.status(200).send("world");
+            checkSearchParams,
+            async ({ query }: Request, res: Response) => {
+                res.status(200).send("world " + query.q);
             }
         ]
     }

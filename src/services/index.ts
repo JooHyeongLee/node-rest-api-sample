@@ -1,2 +1,5 @@
 import routes from "./routes";
-export default [...routes];
+export default async function() {
+    return await routes()    
+}
+//export default [...routes];

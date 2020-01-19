@@ -15,7 +15,7 @@ describe("routes", () => {
   beforeEach(() => {
     router = express();
     applyMiddleware(middleware, router);
-    applyRoutes(routes, router);
+       applyRoutes(routes, router);
     applyMiddleware(errorHandlers, router);
   });
 
