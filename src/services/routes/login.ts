@@ -6,7 +6,8 @@ const login = {
         path: "/login",
         method: "post",
         handler: [
-            async ({  }: Request, res: Response) => {
+            async ({body}: Request, res: Response) => {
+                console.log(body);
                 res.status(200).send("login");
             }
         ]

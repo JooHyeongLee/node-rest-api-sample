@@ -1,7 +1,9 @@
 import {
     handleCors,
     handleBodyRequestParsing,
-    handleCompression
+    handleCompression,
+    staticDir,
+    multipart
   } from "./common";
   
   import { handleAPIDocs } from "./apiDocs";
@@ -10,5 +12,7 @@ import {
     handleCors,
     handleBodyRequestParsing,
     handleCompression,
-    handleAPIDocs
+    handleAPIDocs,
+    staticDir,
+    multipart
   ];
