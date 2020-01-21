@@ -5,11 +5,16 @@ import { applyMiddleware, applyRoutes } from "./utils";
 import middleware from "./middleware";
 import errorHandlers from "./middleware/errorHandlers";
 import routes from "./services";
+import { logger } from "./utils/logger";
 
 // type orm 
 import * as dbConnection from './utils/dbConnection';
-import { logger } from "./utils/logger";
 dbConnection.conn();
+
+
+// mongo DB 
+import * as mongoosedbConnModule from './utils/mongodbConnModule';
+mongoosedbConnModule.conn();
 
 process.on("uncaughtException", e => {
   console.log(e);
@@ -29,7 +34,7 @@ applyRoutes(routes, app);
 // 에러핸들러 미들웨어 등록
 applyMiddleware(errorHandlers, app);
 
-const { PORT = 3000 } = process.env;
+const { PORT = 8081 } = process.env;
 const server = http.createServer(app);
 
 server.listen(PORT, ()=>{
