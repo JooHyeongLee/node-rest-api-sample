@@ -3,10 +3,12 @@ import {
     handleBodyRequestParsing,
     handleCompression,
     staticDir,
-    multipart
+    multipart,
   } from "./common";
   
-  import { handleAPIDocs } from "./apiDocs";
+import { handleAPIDocs } from "./apiDocs";
+import { limiter } from "./rateLimit";
+import { sess } from "./session";
   
   export default [
     handleCors,
@@ -14,5 +16,7 @@ import {
     handleCompression,
     handleAPIDocs,
     staticDir,
-    multipart
+    multipart,
+    limiter,
+    sess
   ];

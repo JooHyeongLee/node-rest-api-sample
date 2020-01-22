@@ -11,7 +11,6 @@ import { logger } from "./utils/logger";
 import * as dbConnection from './utils/dbConnection';
 dbConnection.conn();
 
-
 // mongo DB 
 import * as mongoosedbConnModule from './utils/mongodbConnModule';
 mongoosedbConnModule.conn();
@@ -42,6 +41,5 @@ server.listen(PORT, ()=>{
     logger.info(`    Openrider3 server listening on port ` + PORT);
     logger.info(`     - hostname : ${os.hostname()}`);
     logger.info(`     - run-mode : ${process.env.NODE_ENV}`);
-    logger.info(`     - by-local : ${process.env.BY_LOCAL}`);
     logger.info(`---------------------------------------------------`);
 })
