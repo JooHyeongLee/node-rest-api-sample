@@ -2,6 +2,7 @@ import { Router, Request, Response } from "express";
 import { logger } from "../../utils/logger";
 import { Member } from "../models/member";
 
+
 const login = {
     login: {
         path: "/login",
