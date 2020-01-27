@@ -7,7 +7,7 @@ const home = {
         method: "get",
         handler: [
             async ({ session }: Request, res: Response) => {
-                logger.info(`[route] / ${session!.isLogin}`);
+                logger.info(`[route] / `);
                 res.status(200).send(session);
             }
         ]

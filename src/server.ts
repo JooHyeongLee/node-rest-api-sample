@@ -15,6 +15,10 @@ dbConnection.conn();
 import * as mongoosedbConnModule from './utils/mongodbConnModule';
 mongoosedbConnModule.conn();
 
+// mosca
+import {mosca} from './utils/mosca';
+mosca();
+
 process.on("uncaughtException", e => {
   console.log(e);
   process.exit(1);
