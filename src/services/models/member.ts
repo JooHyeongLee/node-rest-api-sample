@@ -1,5 +1,6 @@
 import { Schema, model, Document, Model } from 'mongoose';
 
+// TODO: Schema 를 클래스로 객체 생성 시 overwrite 에러 발생하는 것 고쳐보기
 // var Schema = mongoose.Schema;
 declare interface Info extends Document{
   name?: string;
