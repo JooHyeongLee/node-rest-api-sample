@@ -2,7 +2,6 @@ import { Router, Request, Response } from "express";
 import { logger } from "../../utils/logger";
 import { Member } from "../models/member";
 
-
 const login = {
     login: {
         path: "/login",
@@ -11,11 +10,10 @@ const login = {
             async ({body, session}: Request, res: Response) => {
                 logger.info(`[route]: /login`);
                 let member = new Member();
-                let info;
-                /* let info = await member.model.findOne({
+                let info = await member.model.findOne({
                     email: body.email,
                     password: body.password
-                }); */
+                });
                 if(info) {
                     session!.isLogin = true;
                     res.status(200).send("success");

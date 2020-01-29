@@ -12,8 +12,8 @@ import * as dbConnection from './utils/dbConnection';
 dbConnection.conn();
 
 // mongo DB 
-import * as mongoosedbConnModule from './utils/mongodbConnModule';
-mongoosedbConnModule.conn();
+import {MongoConn} from './utils/mongodbConnModule';
+new MongoConn();
 
 // mosca
 import {mosca} from './utils/mosca';
