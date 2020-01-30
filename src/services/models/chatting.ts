@@ -37,7 +37,8 @@ var ChattingSchema = new Schema({
   types: { type: String, required: true },
   password: { type: String },
   count: { type: Number },
-  creation_date: { type: Date, default: Date.now }
+  creation_date: { type: Date, default: Date.now },
+  useYN: { type: String }
 }, {collection: 'chatting'});
 
 var Chatting = mongoose.model("Chatting", ChattingSchema); 

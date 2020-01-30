@@ -2,6 +2,7 @@ import { Router, Request, Response } from "express";
 import { logger } from "../../utils/logger";
 import { Chatting } from '../models/chatting';
 import mqtt from 'mqtt';
+import { chattingController } from "../controllers/chatting";
 
 
 const chatting = {
@@ -23,10 +24,11 @@ const chatting = {
         path: "/api/chat/create",
         method: "post",
         handler: [
-            async ({  }: Request, res: Response) => {
+            async (req: Request, res: Response) => {
                 logger.info('[route] /api/chat/create');
                 // 채팅방 생성
-                res.status(200).send("create");
+                let create = await chattingController.create(req);
+                res.status(200).send(create);
             }
         ]
     }
