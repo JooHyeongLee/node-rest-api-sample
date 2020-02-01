@@ -17,5 +17,5 @@ export const chattingController = {
         } catch(error) {
           logger.error(error);
         }
-    }
+    },
 };

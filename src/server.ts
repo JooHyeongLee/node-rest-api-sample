@@ -1,7 +1,3 @@
-/* 
- * Copyright (c) 2020 jhlee@cufit.net
- */
-
 import http from "http";
 import os from 'os';
 import express from "express";

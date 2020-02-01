@@ -31,6 +31,18 @@ const chatting = {
                 res.status(200).send(create);
             }
         ]
+    },
+    submit: {
+        path: "/api/chat/submit",
+        method: "post",
+        handler: [
+            async (req: Request, res: Response) => {
+                logger.info('[route] /api/chat/submit');
+                // 채팅방 생성
+                console.log(req.body);
+                res.status(200).send("hello");
+            }
+        ]
     }
 }
 
