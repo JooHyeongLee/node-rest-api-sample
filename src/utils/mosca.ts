@@ -19,9 +19,9 @@ const mosca = async() =>{
         logger.info('client connected', client.id);
     });
     
-    mosca.on('published', (packet, client) =>{
-      logger.info('Published', packet.payload);
-    });
+    //    mosca.on('published', (packet, client) =>{
+    //      logger.info('Published', packet.payload);
+    //    });
     
     mosca.on('ready', ()=>{
       logger.info('Mosca server is up and running');

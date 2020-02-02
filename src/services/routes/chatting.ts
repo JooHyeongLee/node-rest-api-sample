@@ -32,6 +32,17 @@ const chatting = {
             }
         ]
     },
+    join: {
+        path: "/api/chat/join",
+        method: "post",
+        handler: [
+            async (req: Request, res: Response) => {
+                logger.info('[route] /api/chat/join');
+                let join = await chattingController.join(req);
+                res.status(200).send("test");
+            }
+        ]
+    },
     submit: {
         path: "/api/chat/submit",
         method: "post",
