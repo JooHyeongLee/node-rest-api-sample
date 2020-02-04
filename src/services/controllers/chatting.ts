@@ -23,6 +23,7 @@ export const chattingController = {
         logger.info('[model] join mqtt');
         let client = mqtt.connect('mqtt://localhost:1883');
         
+        /*
         client.on('connect', function () {
             client.subscribe(req.body.id, (err) => {
                 console.log('구독과 좋아요');
@@ -31,6 +32,7 @@ export const chattingController = {
             //                }
             })
         })
+        */
         client.on('message', function (topic, message) {
           // message is Buffer
           console.log(message.toString())

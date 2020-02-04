@@ -1,6 +1,7 @@
 import { Router, Request, Response } from "express";
 import { logger } from "../../utils/logger";
 import { Chatting } from '../models/chatting';
+import util from 'util';
 import mqtt from 'mqtt';
 import { chattingController } from "../controllers/chatting";
 
@@ -49,8 +50,19 @@ const chatting = {
         handler: [
             async (req: Request, res: Response) => {
                 logger.info('[route] /api/chat/submit');
-                // 채팅방 생성
-                console.log(req.body);
+                var client  = mqtt.connect('mqtt://test.mosquitto.org');
+                // TODO 채팅방에 따라서 구독 채널(collection)을 분기하는 방법
+                // 채팅방만큼 구독 가능한 채널이 생길 수 있으므로 collectino 관리가 필요할듯.
+                client.on('connect', () => {
+                    client.subscribe('presence', function (err) {
+                        if (!err) {
+                          logger.info(req.body.chat);
+                          client.publish('listener', req.body.chat)
+                        }
+                    })
+                })
+
+
                 res.status(200).send("hello");
             }
         ]

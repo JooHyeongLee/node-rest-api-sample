@@ -1,22 +1,22 @@
 import _mosca from 'mosca';
 import { logger } from './logger';
 const mosca = async() =>{
-    const ascoltatore = {
+    const listener = {
         //using ascoltatore
         type: 'mongo',
         url: 'mongodb://localhost:27017/mqtt',
-        pubsubCollection: 'ascoltatori',
+        pubsubCollection: 'listener',
         mongo: {}
     }
     const settings = {
         port: 1883,
-        backend: ascoltatore
+        backend: listener 
     }
     
     const mosca = new _mosca.Server(settings);
     
     mosca.on('clientConnected', (client: { id: any; })=>{
-        logger.info('client connected', client.id);
+        logger.info(`client connected : ${client.id}`);
     });
     
     //    mosca.on('published', (packet, client) =>{
