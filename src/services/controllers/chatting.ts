@@ -3,6 +3,7 @@ import * as db from "typeorm";
 import { Chatting } from "../models/chatting";
 import { Request } from "express";
 import mqtt from 'mqtt';
+import { Mqtt } from "./mqtt";
 
 
 export const chattingController = {
@@ -20,23 +21,20 @@ export const chattingController = {
         }
     },
     join: async (req: Request) => {
-        logger.info('[model] join mqtt');
+        await Mqtt.getInstance().subscribe(req.body.id);
         let client = mqtt.connect('mqtt://localhost:1883');
-        
-        /*
-        client.on('connect', function () {
-            client.subscribe(req.body.id, (err) => {
-                console.log('구독과 좋아요');
-            //                if (!err) {
-            //                  client.publish(req.body.id, 'Hello mqtt');
-            //                }
-            })
-        })
-        */
+        /* client.subscribe(req.body.id, (err)=> {
+            if(!err) {
+                logger.info(`${req.body.id} topic join!`);
+            }
+        }) */
         client.on('message', function (topic, message) {
           // message is Buffer
           console.log(message.toString())
           client.end()
         })
+    },
+    submit: async(req: Request) => {
+        await Mqtt.getInstance().publish(req.body.id, req.body.chat);
     }
 };
