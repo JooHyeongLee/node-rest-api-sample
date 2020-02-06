@@ -1,17 +1,19 @@
 import mqtt, { MqttClient } from 'mqtt';
 
+
 export class Mqtt {
-    private static instance: Mqtt;
-    private client: MqttClient
+    public static instance: Mqtt;
+    public client: MqttClient;
+    static test: Mqtt;
+
     constructor() {
         this.conn();
     }
 
-    public static getInstance(): Mqtt {
+    public static get getInstance(): Mqtt {
         if (!Mqtt.instance) {
             Mqtt.instance = new Mqtt();
         }
-
         return Mqtt.instance;
     }
 
@@ -20,6 +22,7 @@ export class Mqtt {
         this.client = mqtt.connect('mqtt://localhost:1883')
     }
 
+    // 구독
     async subscribe(topic: string) {
         this.client.subscribe(topic);
     }

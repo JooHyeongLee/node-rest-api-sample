@@ -8,8 +8,9 @@ import routes from "./services";
 import { logger } from "./utils/logger";
 
 // type orm 
-import * as dbConnection from './utils/dbConnection';
-dbConnection.conn();
+// import * as dbConnection from './utils/dbConnection';
+// dbConnection.conn();
+
 
 // mongo DB 
 import {MongoConn} from './utils/mongodbConnModule';
@@ -17,6 +18,7 @@ new MongoConn();
 
 // mosca
 import {mosca} from './utils/mosca';
+import { Mqtt } from "./services/controllers/Mqtt";
 mosca();
 
 process.on("uncaughtException", e => {

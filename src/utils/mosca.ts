@@ -22,6 +22,11 @@ const mosca = async() =>{
     //    mosca.on('published', (packet, client) =>{
     //      logger.info('Published', packet.payload);
     //    });
+
+    // fired when a message is received
+    mosca.on('published', function(packet, client) {
+        logger.info(`😀 Published ${packet.payload}`);
+    });
     
     mosca.on('ready', ()=>{
       logger.info('Mosca server is up and running');

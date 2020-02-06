@@ -5,7 +5,6 @@ import { Request } from "express";
 import mqtt from 'mqtt';
 import { Mqtt } from "./mqtt";
 
-
 export const chattingController = {
     create: async (req: Request) => {
         try {
@@ -21,20 +20,21 @@ export const chattingController = {
         }
     },
     join: async (req: Request) => {
-        await Mqtt.getInstance().subscribe(req.body.id);
+        await Mqtt.getInstance.subscribe(req.body.id);
         let client = mqtt.connect('mqtt://localhost:1883');
         /* client.subscribe(req.body.id, (err)=> {
             if(!err) {
                 logger.info(`${req.body.id} topic join!`);
             }
         }) */
-        client.on('message', function (topic, message) {
-          // message is Buffer
-          console.log(message.toString())
-          client.end()
-        })
     },
     submit: async(req: Request) => {
-        await Mqtt.getInstance().publish(req.body.id, req.body.chat);
+        await Mqtt.getInstance.publish(req.body.id, req.body.chat);
     }
 };
+
+Mqtt.getInstance.client.on('message', (topic, packet) => {
+    logger.info(`🐶 ${topic} ${packet}`)
+  })
+
+
