@@ -1,6 +1,6 @@
 import * as fs from 'fs';
 import * as path from 'path';
-import { logger } from '../utils/logger';
+import { logger } from '../lib/logger';
 
 async function routeList() {
   const files = await new Promise((resolve, reject)=> fs.readdir(path.join(__dirname, '/routes/'), (err: NodeJS.ErrnoException | null, files: string[])=>{
@@ -25,7 +25,7 @@ async function initRouter<Router>() {
 
   let result: any[] = await Promise.all(js.map(async (v: any)=> {
     const route = await import (path.join(__dirname, `/routes/${v}`));
-    return await Object.values(route[v.split(".js")[0]]);
+    return Object.values(route[v.split(".js")[0]]);
   }));
   
   const route: Partial<Router>[] = [];

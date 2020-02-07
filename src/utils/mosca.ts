@@ -1,5 +1,5 @@
 import _mosca from 'mosca';
-import { logger } from './logger';
+import { logger } from '../lib/logger';
 const mosca = async() =>{
     const listener = {
         //using ascoltatore

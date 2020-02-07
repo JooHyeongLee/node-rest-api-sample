@@ -1,6 +1,6 @@
 import { Router, Request, Response } from "express";
 import {getMemberCount} from '../controllers/count';
-import { logger } from "../../utils/logger";
+import { logger } from "../../lib/logger";
 
 const count = {
     memberCount : {

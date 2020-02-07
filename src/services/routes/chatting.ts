@@ -1,5 +1,5 @@
 import { Router, Request, Response } from "express";
-import { logger } from "../../utils/logger";
+import { logger } from "../../lib/logger";
 import { Chatting } from '../models/chatting';
 import util from 'util';
 import mqtt from 'mqtt';

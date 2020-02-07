@@ -1,6 +1,6 @@
 import { Router, Request, Response } from "express";
-import { logger } from "../../utils/logger";
 import { Member } from "../models/member";
+import { logger } from "../../lib/logger";
 
 const login = {
     login: {

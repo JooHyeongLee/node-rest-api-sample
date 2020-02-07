@@ -1,4 +1,4 @@
-import { logger } from "../../utils/logger";
+import { logger } from "../../lib/logger";
 import * as db from "typeorm";
 import { Chatting } from "../models/chatting";
 import { Request } from "express";
