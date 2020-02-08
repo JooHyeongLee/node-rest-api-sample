@@ -12,6 +12,7 @@ import { config } from './config';
 
 export class Mongo { 
     private db: mongoose.Connection;
+    static mongo = new Mongo();
     constructor() {
         this.init();
     }

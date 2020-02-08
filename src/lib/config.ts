@@ -1,4 +1,6 @@
 import {ormConfig} from '../config/ormconfig';
+import {development} from '../config/development';
+import {production} from '../config/production';
 
 // Config Class
 class Config {
@@ -18,10 +20,12 @@ class Config {
         // 상용일 때
         if(process.env.NODE_ENV === 'production') {
             this.orm = ormConfig.development;
+            this.common = production;
         } 
         // 개발일 때
         else {
             this.orm = ormConfig.production;
+            this.common = development;
         }
     }
 }

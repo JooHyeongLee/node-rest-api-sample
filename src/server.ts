@@ -1,51 +1,70 @@
-import http from "http";
+/** 
+ * openrider3 - v2
+ *
+ * (c) 2020 Cufit Inc.
+ * Author : dev@cufit.net
+ */
+
 import os from 'os';
-import express from "express";
-import { applyMiddleware, applyRoutes } from "./utils";
-import middleware from "./middleware";
-import errorHandlers from "./middleware/errorHandlers";
-import routes from "./services";
-import { logger } from "./lib/logger";
-
-// type orm 
-// import * as dbConnection from './utils/dbConnection';
-// dbConnection.conn();
-
-
+import http from 'http';
+import express, { Router} from 'express';
+import { handleCors, handleBodyRequestParsing, handleCompression, staticDir, multipart } from "./middleware/common";
+import routes from './services/routes';
+import { logger } from './lib/logger';
+import { config } from './lib/config';
 // mongo DB 
-import { Mongo } from "./lib/mongo";
+import { mongo } from "./lib/mongo";
+mongo;
 
 // mosca
-import {mosca} from './utils/mosca';
+import { mosca } from './utils/mosca';
 import { Mqtt } from "./services/controllers/Mqtt";
 
-mosca();
 
-process.on("uncaughtException", e => {
-  console.log(e);
-  process.exit(1);
-});
+export class Server {
 
-process.on("unhandledRejection", e => {
-  console.log(e);
-  process.exit(1);
-});
+  // 미들웨어 등록
+  applyMiddleware(router: Router) {
+    handleCors(router);
+    handleBodyRequestParsing(router);
+    handleCompression(router);
+    staticDir(router);
+    multipart(router);
+  }
 
-const app = express();
-// 미들웨어 등록
-applyMiddleware(middleware, app);
-// 라우터 등록
-applyRoutes(routes, app);
-// 에러핸들러 미들웨어 등록
-applyMiddleware(errorHandlers, app);
+  // 라우터 등록
+  async applyRoutes(routes: any, router: Router) : Promise<void>{
+    // route 리스트 반환
+    let routeAll = await routes();
+    // route 적용
+    for (const route of routeAll) {
+        let props = Object.values(route);
+        props.map( (v: any)=>{
+            const { method, path, handler } = v;
+            (router as any)[method](path, handler);
+        })
+    }
+  }
 
-const { PORT = 8081 } = process.env;
-const server = http.createServer(app);
+  // Express 서버 실행
+  run() {
+    // 서비스 포트
+    const port = config.common.SERVER.PORT;
+    // Express 설정
+    const app = express();
+    this.applyMiddleware(app);
+    this.applyRoutes(routes, app);
 
-server.listen(PORT, ()=>{
-    logger.info(`---------------------------------------------------`);
-    logger.info(`    Openrider3 server listening on port ` + PORT);
-    logger.info(`     - hostname : ${os.hostname()}`);
-    logger.info(`     - run-mode : ${process.env.NODE_ENV}`);
-    logger.info(`---------------------------------------------------`);
-})
+    // Express 시작
+    const server = http.createServer(app);
+
+    server.listen(port, () => {
+      logger.info(`---------------------------------------------------`);
+      logger.info(`    Openrider3 server listening on port ` + port);
+      logger.info(`     - hostname : ${os.hostname()}`);
+      logger.info(`     - run-mode : ${process.env.NODE_ENV}`);
+      logger.info(`     - by-local : ${process.env.BY_LOCAL}`);
+      logger.info(`---------------------------------------------------`);
+    })
+  }
+}

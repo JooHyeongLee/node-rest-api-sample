@@ -1,14 +1,14 @@
 import { logger } from "../../lib/logger";
 import * as db from "typeorm";
-import { Chatting } from "../models/chatting";
+import { chattingVo } from "../models/chatting";
 import { Request } from "express";
 import mqtt from 'mqtt';
 import { Mqtt } from "./mqtt";
 
-export const chattingController = {
-    create: async (req: Request) => {
+class Chatting {
+    create =  async (req: Request) => {
         try {
-            await Chatting.create({
+            await chattingVo.create({
                 title: req.body.title,
                 types: req.body.types,
                 password: req.body.password,
@@ -18,8 +18,8 @@ export const chattingController = {
         } catch(error) {
           logger.error(error);
         }
-    },
-    join: async (req: Request) => {
+    }
+    join = async (req: Request) => {
         await Mqtt.getInstance.subscribe(req.body.id);
         let client = mqtt.connect('mqtt://localhost:1883');
         /* client.subscribe(req.body.id, (err)=> {
@@ -27,14 +27,17 @@ export const chattingController = {
                 logger.info(`${req.body.id} topic join!`);
             }
         }) */
-    },
-    submit: async(req: Request) => {
+    }
+    submit = async(req: Request) => {
         await Mqtt.getInstance.publish(req.body.id, req.body.chat);
     }
-};
+
+}
+
+export const chattingService = new Chatting();
 
 Mqtt.getInstance.client.on('message', (topic, packet) => {
     logger.info(`🐶 ${topic} ${packet}`)
-  })
+})
 
 
