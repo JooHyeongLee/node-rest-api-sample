@@ -1,10 +1,9 @@
 /** 
- * openrider3 - v2
+ * Mongo DB pool
  *
- * (c) 2020 Cufit Inc.
- * Author : dev@cufit.net
+ * (c) 2020 jhlee
+ * Author : jhlee@cufit.net
  */
-
 
 import mongoose = require("mongoose");
 import { logger } from './logger';
@@ -12,9 +11,13 @@ import { config } from './config';
 
 export class Mongo { 
     private db: mongoose.Connection;
-    static mongo = new Mongo();
+    
     constructor() {
         this.init();
+    }
+
+    public get pool() {
+        return this.db;
     }
 
     public async init() {

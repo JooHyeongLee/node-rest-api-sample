@@ -1,43 +1,36 @@
 import { logger } from "../../lib/logger";
-import * as db from "typeorm";
 import { chattingVo } from "../models/chatting";
 import { Request } from "express";
-import mqtt from 'mqtt';
-import { Mqtt } from "./mqtt";
+import { Mqtt } from "../../lib/mqtt";
+import { BaseController } from "../commonType/base";
 
-class Chatting {
+class Chatting extends BaseController {
+    // 채팅방 생성
     create =  async (req: Request) => {
         try {
-            await chattingVo.create({
+            let result = await chattingVo.create({
                 title: req.body.title,
                 types: req.body.types,
                 password: req.body.password,
                 count: 0,
+                channel: req.body.channel,
                 useYN: 'Y'
             });
+            return this.success(result);
         } catch(error) {
           logger.error(error);
         }
     }
+    // 채팅방 구독
     join = async (req: Request) => {
-        await Mqtt.getInstance.subscribe(req.body.id);
-        let client = mqtt.connect('mqtt://localhost:1883');
-        /* client.subscribe(req.body.id, (err)=> {
-            if(!err) {
-                logger.info(`${req.body.id} topic join!`);
-            }
-        }) */
+        // await new Mqtt().subscribe(req.body.id);
+        logger.info(`${req.body.id} topic join!`);
     }
+    // 메세지 발행
     submit = async(req: Request) => {
-        await Mqtt.getInstance.publish(req.body.id, req.body.chat);
+        // await new Mqtt().publish(req.body.id, req.body.chat);
     }
-
 }
 
-export const chattingService = new Chatting();
-
-Mqtt.getInstance.client.on('message', (topic, packet) => {
-    logger.info(`🐶 ${topic} ${packet}`)
-})
-
+export const chattingService = Chatting;
 

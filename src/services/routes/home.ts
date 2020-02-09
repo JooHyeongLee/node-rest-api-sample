@@ -1,8 +1,10 @@
 import { Router, Request, Response } from "express";
 import { logger } from "../../lib/logger";
-import { BaseController } from "../commonType/base";
+import { config } from "../../lib/config";
+import { mongo } from "../../lib/mongo";
+import { db } from "../../lib/db";
 
-class Home extends BaseController {
+class Home {
     home = {
         home: {
             path: "/",
@@ -20,7 +22,8 @@ class Home extends BaseController {
             handler: [
                 async ({ session }: Request, res: Response) => {
                     logger.info(`[route] / `);
-                    res.status(200).send(session);
+                    console.log(mongo.pool.collection('member').find({}));
+                    res.status(200).send(config.common);
                 }
             ]
         }

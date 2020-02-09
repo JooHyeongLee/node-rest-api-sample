@@ -4,6 +4,7 @@ import {
     handleCompression,
     staticDir,
     multipart,
+    mqtt
   } from "./common";
   
 import { handleAPIDocs } from "./apiDocs";
@@ -18,5 +19,6 @@ import { sess } from "./session";
     staticDir,
     multipart,
     limiter,
-    sess
+    sess,
+    mqtt
   ];

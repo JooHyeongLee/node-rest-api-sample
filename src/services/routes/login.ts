@@ -1,9 +1,8 @@
 import { Router, Request, Response } from "express";
 import { Member } from "../models/member";
 import { logger } from "../../lib/logger";
-import { BaseController } from "../commonType/base";
 
-class Login extends BaseController {
+class Login {
     login = {
         login: {
             path: "/login",

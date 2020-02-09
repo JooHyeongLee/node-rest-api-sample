@@ -1,10 +1,9 @@
 /** 
- * openrider3 - v2
+ * Type ORM (MYSQL) db pool
  *
- * (c) 2020 Cufit Inc.
- * Author : dev@cufit.net
+ * (c) 2020 jhlee
+ * Author : jhlee@cufit.net
  */
-
 
 import * as typeorm from 'typeorm';
 import { logger } from './logger';

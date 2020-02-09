@@ -10,6 +10,12 @@ interface ReturnForm {
     data?: any
 }
 
+interface ChattingForm {
+    id: string,
+    message: string,
+    channel: string
+}
+
 export class BaseController {
 
     error(message: String):ReturnForm {
@@ -24,6 +30,14 @@ export class BaseController {
             result : true,
             message : "OK",
             data: data
+        }
+    }
+
+    sendMessage(data: any): ChattingForm {
+        return {
+            id: data.id,
+            message: data.message,
+            channel: data.channel
         }
     }
 }

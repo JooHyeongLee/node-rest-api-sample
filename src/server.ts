@@ -8,18 +8,15 @@
 import os from 'os';
 import http from 'http';
 import express, { Router} from 'express';
-import { handleCors, handleBodyRequestParsing, handleCompression, staticDir, multipart } from "./middleware/common";
+import { handleCors, handleBodyRequestParsing, handleCompression, staticDir, multipart, mqtt } from "./middleware/common";
 import routes from './services/routes';
 import { logger } from './lib/logger';
 import { config } from './lib/config';
 // mongo DB 
 import { mongo } from "./lib/mongo";
-mongo;
 
-// mosca
-import { mosca } from './utils/mosca';
-import { Mqtt } from "./services/controllers/Mqtt";
-
+// mqtt server(mosca)
+import { mosca } from './lib/mosca';
 
 export class Server {
 
@@ -30,6 +27,7 @@ export class Server {
     handleCompression(router);
     staticDir(router);
     multipart(router);
+    mqtt(router);
   }
 
   // 라우터 등록
@@ -57,6 +55,9 @@ export class Server {
 
     // Express 시작
     const server = http.createServer(app);
+
+    // MQTT server(mosca) 시작
+    mosca.init();
 
     server.listen(port, () => {
       logger.info(`---------------------------------------------------`);

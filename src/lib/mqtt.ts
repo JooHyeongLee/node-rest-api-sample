@@ -1,25 +1,22 @@
-import mqtt, { MqttClient } from 'mqtt';
+/** 
+ * MQTT Client
+ *
+ * (c) 2020 jhlee
+ * Author : jhlee@cufit.net
+ */
 
+import _mqtt, { MqttClient } from 'mqtt';
 
 export class Mqtt {
-    public static instance: Mqtt;
     public client: MqttClient;
-    static test: Mqtt;
 
     constructor() {
         this.conn();
     }
 
-    public static get getInstance(): Mqtt {
-        if (!Mqtt.instance) {
-            Mqtt.instance = new Mqtt();
-        }
-        return Mqtt.instance;
-    }
-
     // 연결
     async conn() {
-        this.client = mqtt.connect('mqtt://localhost:1883')
+        this.client = _mqtt.connect('mqtt://localhost:1883')
     }
 
     // 구독
@@ -32,3 +29,5 @@ export class Mqtt {
         this.client.publish(topic, message);
     }
 }
+
+export const mqtt = new Mqtt();
