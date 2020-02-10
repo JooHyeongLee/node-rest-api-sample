@@ -9,7 +9,7 @@ import os from 'os';
 import http from 'http';
 import express, { Router} from 'express';
 import { handleCors, handleBodyRequestParsing, handleCompression, staticDir, multipart, mqtt } from "./middleware/common";
-import routes from './services/routes';
+import routes from './controllers/routes';
 import { logger } from './lib/logger';
 import { config } from './lib/config';
 // mongo DB 

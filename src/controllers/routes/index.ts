@@ -43,7 +43,7 @@ async function initRouter<Router>() {
       const route = await import(path.join(__dirname, `/${v}`));
       let routeName = v.split('.js')[0];
       // 참고) route 파일명과 파일내 최상위 객체명이 동일해야함
-      return route[routeName][routeName];
+      return Object.values(route[routeName]);
     })
   );
 

@@ -1,5 +1,5 @@
 import { logger } from "../../lib/logger";
-import { chattingVo } from "../models/chatting";
+import { chattingModel } from "../models/chatting";
 import { Request } from "express";
 import { Mqtt } from "../../lib/mqtt";
 import { BaseController } from "../commonType/base";
@@ -8,7 +8,7 @@ class Chatting extends BaseController {
     // 채팅방 생성
     create =  async (req: Request) => {
         try {
-            let result = await chattingVo.create({
+            let result = await chattingModel.model.create({
                 title: req.body.title,
                 types: req.body.types,
                 password: req.body.password,
