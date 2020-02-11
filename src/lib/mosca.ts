@@ -9,10 +9,9 @@ import _mosca from 'mosca';
 import { logger } from './logger';
 
 class Mosca {
-    mosca: any
+    broker: any
 
     constructor(){
-        
     }
 
     init() {
@@ -29,20 +28,20 @@ class Mosca {
             backend: listener 
         }
         
-        this.mosca = new _mosca.Server(settings);
-
-        this.mosca.on('clientConnected', (client: { id: any; })=>{
-            logger.info(`client connected : ${client.id}`);
-        });
+        this.broker = new _mosca.Server(settings);
 
         // fired when a message is received
-        this.mosca.on('published', function(packet: any, client: any) {
+        this.broker.on('published', function(packet: any, client: any) {
             logger.info(`Published ${packet.payload}`);
         });
         
-        // mosca server start
-        this.mosca.on('ready', ()=>{
-          logger.info('Mosca server is up and running');
+        // mosca broker start
+        this.broker.on('ready', ()=>{
+          logger.info('Mosca broker is up and running');
+        });
+
+        this.broker.on('clientConnected', (client: { id: any; })=>{
+            logger.info(`client connected : ${client.id}`);
         });
     }
 }

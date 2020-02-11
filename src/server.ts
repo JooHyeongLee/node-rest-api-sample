@@ -14,6 +14,8 @@ import { logger } from './lib/logger';
 import { config } from './lib/config';
 // mongo DB 
 import { mongo } from "./lib/mongo";
+mongo.init()
+
 
 // mqtt server(mosca)
 import { mosca } from './lib/mosca';
@@ -57,11 +59,11 @@ export class Server {
     const server = http.createServer(app);
 
     // MQTT server(mosca) 시작
-    mosca.init();
+    mosca.init()
 
     server.listen(port, () => {
       logger.info(`---------------------------------------------------`);
-      logger.info(`    Openrider3 server listening on port ` + port);
+      logger.info(`    Express server listening on port ` + port);
       logger.info(`     - hostname : ${os.hostname()}`);
       logger.info(`     - run-mode : ${process.env.NODE_ENV}`);
       logger.info(`     - by-local : ${process.env.BY_LOCAL}`);

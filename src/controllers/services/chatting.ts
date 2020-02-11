@@ -3,6 +3,7 @@ import { chattingModel } from "../models/chatting";
 import { Request } from "express";
 import { Mqtt } from "../../lib/mqtt";
 import { BaseController } from "../commonType/base";
+import { mosca } from "../../lib/mosca";
 
 class Chatting extends BaseController {
     // 채팅방 생성
@@ -25,6 +26,9 @@ class Chatting extends BaseController {
     join = async (req: Request) => {
         // await new Mqtt().subscribe(req.body.id);
         logger.info(`${req.body.id} topic join!`);
+        mosca.broker.on('clientConnected', (client: { id: any; })=>{
+            logger.info(`client connected : ${client.id}`);
+        });
     }
     // 메세지 발행
     submit = async(req: Request) => {

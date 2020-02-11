@@ -9,7 +9,7 @@ import mongoose = require("mongoose");
 import { logger } from './logger';
 import { config } from './config';
 
-export class Mongo { 
+class Mongo { 
     private db: mongoose.Connection;
     
     constructor() {
@@ -25,7 +25,7 @@ export class Mongo {
         this.db = mongoose.connection;
         this.db.on("error", console.error.bind(console, "connection error"));
         this.db.once("open", async () =>{
-            logger.info("Connection Succeeded");
+            logger.info("Mongo Connection Succeeded");
         });
   }
 }
