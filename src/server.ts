@@ -19,6 +19,7 @@ mongo.init()
 
 // mqtt server(mosca)
 import { mosca } from './lib/mosca';
+import { sess } from './middleware/session';
 
 export class Server {
 
@@ -30,6 +31,7 @@ export class Server {
     staticDir(router);
     multipart(router);
     mqtt(router);
+    sess(router);
   }
 
   // 라우터 등록

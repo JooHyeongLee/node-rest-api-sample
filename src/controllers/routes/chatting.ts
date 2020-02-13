@@ -2,7 +2,7 @@ import { Router, Request, Response } from "express";
 import { logger } from "../../lib/logger";
 import { chattingModel } from '../models/chatting';
 import { chattingService } from "../services/chatting";
-import { Mqtt } from "../../lib/mqtt";
+import { mqtt } from "../../lib/mqtt";
 import { BaseController } from "../commonType/base";
 
 class Chatting extends BaseController {

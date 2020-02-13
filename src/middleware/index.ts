@@ -4,7 +4,7 @@ import {
     handleCompression,
     staticDir,
     multipart,
-    mqtt
+    mqtt,
   } from "./common";
   
 import { handleAPIDocs } from "./apiDocs";
