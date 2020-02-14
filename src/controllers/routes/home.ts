@@ -7,9 +7,9 @@ class Home {
         path: "/",
         method: "get",
         handler: [
-            async ({ session }: Request, res: Response) => {
+            async ( req: Request, res: Response) => {
                 logger.info(`[route] / `);
-                res.status(200).send(session);
+                res.status(200).send(req.session);
                 
             }
         ]

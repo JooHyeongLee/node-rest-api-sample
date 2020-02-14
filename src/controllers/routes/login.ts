@@ -16,6 +16,10 @@ class Login {
                     password: body.password
                 });
                 if(info) {
+                    // 몽고 세션 저장
+                    session?.save(err=>{
+                        logger.error(err);
+                    })
                     res.status(200).send("success");
                 }
                 else {
