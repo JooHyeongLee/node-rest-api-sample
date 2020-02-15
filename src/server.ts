@@ -12,13 +12,12 @@ import { handleCors, handleBodyRequestParsing, handleCompression, staticDir, mul
 import routes from './controllers/routes';
 import { logger } from './lib/logger';
 import { config } from './lib/config';
-// mongo DB 
-import { mongo } from "./lib/mongo";
-mongo.init()
 
 
 // mqtt server(mosca)
 import { mosca } from './lib/mosca';
+import { mongo } from './lib/mongo';
+mongo.init()
 import { sess } from './middleware/session';
 
 export class Server {
