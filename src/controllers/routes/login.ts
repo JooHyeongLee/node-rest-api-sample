@@ -15,14 +15,18 @@ class Login {
                     email: req.body.email,
                     password: req.body.password
                 });
-                
-
                 if(info) {
-                    req.session!.isLogin = true;
-                    // 몽고 세션 저장
-                    req.session?.save(err=>{
-                        logger.error(err);
-                    })
+                    if(req.session!.info) {
+                        req.session?.save(err=>{
+                            if(err) logger.error(`session save error`);
+                        })
+                    } else {
+                        req.session!.info = {
+                            email: info.toObject().email,
+                            profile: info.toObject().profile_url
+                        };
+                        logger.info('session save');
+                    }
                     res.status(200).send(req.session);
                 }
                 else {

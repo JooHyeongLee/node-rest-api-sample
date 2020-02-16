@@ -2,14 +2,13 @@ import session from 'express-session';
 import mongoose  from 'mongoose';
 import { Router } from 'express';
 import { logger } from '../lib/logger';
-import { mongo } from "../lib/mongo";
 const MongoStore = require('connect-mongo')(session);
 
 export const sess = async (router: Router) => {
     router.use(session({
         secret: 'my-secret',
         resave: false,
-        saveUninitialized: true,
+        saveUninitialized: false,
         store: new MongoStore({ 
             mongooseConnection: mongoose.connection,
             url: 'mongodb://localhost/MEVN-boilerplate',
