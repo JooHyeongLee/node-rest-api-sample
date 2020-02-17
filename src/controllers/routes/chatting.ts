@@ -4,6 +4,7 @@ import { chattingModel } from '../models/chatting';
 import { chattingService } from "../services/chatting";
 import { mqtt } from "../../lib/mqtt";
 import { BaseController } from "../commonType/base";
+import { mosca } from "../../lib/mosca";
 
 class Chatting extends BaseController {
 
@@ -44,6 +45,7 @@ class Chatting extends BaseController {
                 logger.info('[route] /api/chat/join');
                 // 여기서 구독하는 프로세스 진행
                 let join = await new chattingService().join(req);
+                await mqtt.subscribe('$SYS/Bd6tyWC/new/clients');
                 res.status(200).send("test");
             }
         ]

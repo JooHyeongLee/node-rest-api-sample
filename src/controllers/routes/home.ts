@@ -10,10 +10,6 @@ class Home {
         method: "get",
         handler: [
             async ( req: Request, res: Response) => {
-                let session = await sessionModel.model.find({
-                    _id: 'qSzjyLXzEMSFQq77hXp-Oia1l4Jroj1G'
-                })
-                console.log(session);
                 logger.info(`[route] / `);
                 res.status(200).send(1);
                 

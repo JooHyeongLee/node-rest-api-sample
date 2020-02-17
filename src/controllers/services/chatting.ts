@@ -1,7 +1,7 @@
 import { logger } from "../../lib/logger";
 import { chattingModel } from "../models/chatting";
 import { Request } from "express";
-import { Mqtt } from "../../lib/mqtt";
+import { mqtt } from "../../lib/mqtt";
 import { BaseController } from "../commonType/base";
 import { mosca } from "../../lib/mosca";
 
@@ -32,6 +32,7 @@ class Chatting extends BaseController {
     }
     // 메세지 발행
     submit = async(req: Request) => {
+        await mqtt.publish('$SYS/Bd6tyWC/new/clients', req.body.chat);
         // await new Mqtt().publish(req.body.id, req.body.chat);
     }
 }
