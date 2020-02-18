@@ -6,9 +6,11 @@
  */
 
 import _mqtt, { MqttClient } from 'mqtt';
+import { logger } from './logger';
 
 export class Mqtt {
     public client: MqttClient;
+    static topic: string
 
     constructor() {
         this.conn();
@@ -21,6 +23,8 @@ export class Mqtt {
 
     // 구독
     async subscribe(topic: string) {
+        logger.info('구독!!' + topic);
+        Mqtt.topic = topic;
         this.client.subscribe(topic);
     }
 

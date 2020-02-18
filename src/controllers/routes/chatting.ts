@@ -44,8 +44,7 @@ class Chatting extends BaseController {
             async (req: Request, res: Response) => {
                 logger.info('[route] /api/chat/join');
                 // 여기서 구독하는 프로세스 진행
-                let join = await new chattingService().join(req);
-                await mqtt.subscribe('$SYS/Bd6tyWC/new/clients');
+                await new chattingService().join(req);
                 res.status(200).send("test");
             }
         ]
