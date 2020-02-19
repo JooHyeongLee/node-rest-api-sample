@@ -33,6 +33,7 @@ class Chatting extends BaseController {
     submit = async(req: Request) => {
         // Base64 decode
         await mqtt.publish(Mqtt.topic, req.body.chat);
+        
     }
 }
 

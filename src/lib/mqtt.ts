@@ -18,7 +18,7 @@ export class Mqtt {
 
     // 연결
     async conn() {
-        this.client = _mqtt.connect('mqtt://localhost:1883')
+        this.client = _mqtt.connect('mqtt://localhost:1883');
     }
 
     // 구독

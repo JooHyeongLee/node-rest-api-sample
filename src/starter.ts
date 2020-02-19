@@ -19,5 +19,8 @@ process.on('unhandledRejection', e => {
     process.exit(1);
 });
 
+// Base 64 decode 테스트
+let data = Buffer.from("c2hvdyBtZSB0aGUgbW9uZXk", 'base64').toString('ascii');
+console.log(data);
 // 서버실행
 new Server().run();
