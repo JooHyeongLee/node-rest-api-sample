@@ -31,10 +31,11 @@ class Mosca {
         this.broker = new _mosca.Server(settings);
 
         // fired when a message is received
-        this.broker.on('published', function(packet: any, client: any) {
-            logger.info(`Published ${packet.payload}`);
+        this.broker.on('published', async function(packet: any, client: any) {
+            logger.info(`mosca : 메세지 전파 ${packet.payload}`);
         });
         
+
         // mosca broker start
         this.broker.on('ready', ()=>{
           logger.info('Mosca broker is up and running');

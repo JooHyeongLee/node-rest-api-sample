@@ -23,7 +23,6 @@ export class Mqtt {
 
     // 구독
     async subscribe(topic: string) {
-        logger.info('구독!!' + topic);
         Mqtt.topic = topic;
         this.client.subscribe(topic);
     }

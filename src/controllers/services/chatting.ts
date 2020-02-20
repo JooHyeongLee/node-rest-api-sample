@@ -32,8 +32,16 @@ class Chatting extends BaseController {
     // 메세지 발행
     submit = async(req: Request) => {
         // Base64 decode
+        let data = Buffer.from('MTIzNA==', 'base64').toString('ascii');
         await mqtt.publish(Mqtt.topic, req.body.chat);
-        
+        console.log(req.body);
+        let newPacket = {
+            topic: 'clients',
+            payload: req.body.chat,
+            retain: false,
+            qos: 0
+          };
+        await mosca.broker.publish(newPacket);
     }
 }
 
