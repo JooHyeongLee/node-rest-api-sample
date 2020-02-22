@@ -1,6 +1,6 @@
 import { logger } from "../../lib/logger";
 import { chattingModel } from "../models/chatting";
-import { Request } from "express";
+import { Request, Response, response } from "express";
 import { mqtt, Mqtt } from "../../lib/mqtt";
 import { BaseController } from "../commonType/base";
 import { mosca } from "../../lib/mosca";
@@ -30,20 +30,14 @@ class Chatting extends BaseController {
         await mqtt.subscribe(req.body.id);        
     }
     // 메세지 발행
-    submit = async(req: Request) => {
-        // Base64 decode
+    submit = async(req: Request, res: Response) => {
+        // Base64 decode sample code
         let data = Buffer.from('MTIzNA==', 'base64').toString('ascii');
-        await mqtt.publish(Mqtt.topic, req.body.chat);
-        console.log(req.body);
-        let newPacket = {
-            topic: 'clients',
-            payload: req.body.chat,
-            retain: false,
-            qos: 0
-          };
-        await mosca.broker.publish(newPacket);
+        // mqtt client publish
+        await mqtt.publish(req.body.topic, req.body.chat);
+        res.send(req.body.chat);
     }
 }
 
-export const chattingService = Chatting;
+export const chattingService = new Chatting();
 

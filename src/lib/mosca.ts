@@ -7,6 +7,7 @@
 
 import _mosca from 'mosca';
 import { logger } from './logger';
+import { chattingService } from '../controllers/services/chatting';
 
 class Mosca {
     broker: any
@@ -32,18 +33,21 @@ class Mosca {
 
         // fired when a message is received
         this.broker.on('published', async function(packet: any, client: any) {
-            logger.info(`mosca : 메세지 전파 ${packet.payload}`);
+            if(client) {
+                logger.info(`${client.id} : 메세지 전파 ${packet.payload}`);
+            }
         });
-        
+
+        // client connected
+        this.broker.on('clientConnected', (client: { id: any; })=>{
+            logger.info(`client connected : ${client.id}`);
+        });
 
         // mosca broker start
         this.broker.on('ready', ()=>{
           logger.info('Mosca broker is up and running');
         });
 
-        this.broker.on('clientConnected', (client: { id: any; })=>{
-            logger.info(`client connected : ${client.id}`);
-        });
     }
 }
 

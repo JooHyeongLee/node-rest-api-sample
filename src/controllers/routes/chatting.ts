@@ -31,7 +31,7 @@ class Chatting extends BaseController {
             async (req: Request, res: Response) => {
                 logger.info('[route] /api/chat/create');
                 // 채팅방 생성
-                let create = await new chattingService().create(req);
+                let create = await chattingService.create(req);
                 res.status(200).send(create);
             }
         ]
@@ -44,7 +44,7 @@ class Chatting extends BaseController {
             async (req: Request, res: Response) => {
                 logger.info('[route] /api/chat/join');
                 // 여기서 구독하는 프로세스 진행
-                await new chattingService().join(req);
+                await chattingService.join(req);
                 res.status(200).send("test");
             }
         ]
@@ -56,7 +56,6 @@ class Chatting extends BaseController {
         handler: [
             async (req: Request, res: Response) => {
                 logger.info('[route] /api/chat/submit');
-                let submit = await new chattingService().submit(req);
                 res.status(200).send(req.body.chat);
             }
         ]
