@@ -2,6 +2,7 @@ import session from 'express-session';
 import mongoose  from 'mongoose';
 import { Router } from 'express';
 import { logger } from '../lib/logger';
+import { config } from '../lib/config';
 const MongoStore = require('connect-mongo')(session);
 
 export const sess = async (router: Router) => {
@@ -11,7 +12,7 @@ export const sess = async (router: Router) => {
         saveUninitialized: false,
         store: new MongoStore({ 
             mongooseConnection: mongoose.connection,
-            url: 'mongodb://localhost/MEVN-boilerplate',
+            url: `mongodb://${config.orm.host}/MEVN-boilerplate`,
             touchAfter: 24 * 3600, // time period in seconds
             autoRemove: 'native', // Default
             collection: "session"
@@ -19,7 +20,7 @@ export const sess = async (router: Router) => {
         /* saveUninitialized: true,
         resave: false,
         store: new MongoStore({
-            url: 'mongodb://localhost/MEVN-boilerplate',
+            url: 'mongodb:///MEVN-boilerplate',
             touchAfter: 24 * 3600, // time period in seconds
             autoRemove: 'native', // Default
             collection: "session"

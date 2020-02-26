@@ -8,6 +8,7 @@
 import _mosca from 'mosca';
 import { logger } from './logger';
 import { chattingService } from '../controllers/services/chatting';
+import { config } from './config';
 
 class Mosca {
     broker: any
@@ -19,7 +20,7 @@ class Mosca {
         const listener = {
             //using ascoltatore
             type: 'mongo',
-            url: 'mongodb://localhost:27017/mqtt',
+            url: `mongodb://${config.orm.host}:27017/mqtt`,
             pubsubCollection: 'listener',
             mongo: {}
         }

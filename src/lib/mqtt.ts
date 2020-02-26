@@ -7,6 +7,7 @@
 
 import _mqtt, { MqttClient } from 'mqtt';
 import { logger } from './logger';
+import { config } from './config';
 
 export class Mqtt {
     public client: MqttClient;
@@ -18,7 +19,7 @@ export class Mqtt {
 
     // 연결
     async conn() {
-        this.client = _mqtt.connect('mqtt://localhost:1883');
+        this.client = _mqtt.connect(`mqtt://${config.orm.host}:1883`);
     }
 
     // 구독

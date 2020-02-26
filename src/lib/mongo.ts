@@ -21,7 +21,7 @@ class Mongo {
     }
 
     public async init() {
-        await mongoose.connect('mongodb://localhost:27017/MEVN-boilerplate', {useUnifiedTopology: true, useNewUrlParser: true, useCreateIndex: true });
+        await mongoose.connect(`mongodb://${config.orm.host}:27017/MEVN-boilerplate`, {useUnifiedTopology: true, useNewUrlParser: true, useCreateIndex: true });
         this.db = mongoose.connection;
         this.db.on("error", console.error.bind(console, "connection error"));
         this.db.once("open", async () =>{

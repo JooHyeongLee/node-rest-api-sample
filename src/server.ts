@@ -13,8 +13,8 @@ import routes from './controllers/routes';
 import { logger } from './lib/logger';
 import { config } from './lib/config';
 
-
 // mqtt server(mosca)
+// TODO: ormconfig 파일의 값으로 mongo, mosca 구동 필요
 import { mosca } from './lib/mosca';
 import { mongo } from './lib/mongo';
 mongo.init()
