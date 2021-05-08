@@ -60,7 +60,7 @@
     "supertest": "^3.4.1",
     "swagger-ui-express": "^4.0.2",
     "tsc-watch": "^1.0.31",
-    "typeorm": "^0.2.22",
+    "typeorm": "^0.2.25",
     "typeorm-model-generator": "^0.4.0",
     "typescript": "^3.7.5",
     "winston": "^3.2.1",
